@@ -19,7 +19,7 @@ const methods = [
 
 export default function LandingPage() {
   return (
-    <main>
+    <main id="top" className="landing-page">
       <Navbar />
       <Hero />
       <section id="mission" className="editorial-section mission-section" aria-labelledby="mission-title">
