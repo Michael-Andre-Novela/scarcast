@@ -122,3 +122,25 @@
   color: #a5ada7;
   line-height: 1.6;
 }
+
+
+.analysis-run-button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #d08a58;
+  color: #111;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.analysis-run-button:hover:not(:disabled) {
+  background: #e0a477;
+}
+
+.analysis-run-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
