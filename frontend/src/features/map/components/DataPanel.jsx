@@ -6,28 +6,37 @@ import AnalysisControls from "./AnalysisControls";
 import EvidenceInspector from "./EvidenceInspector";
 import "./DataPanel.css";
 
-export default function DataPanel({ selectedRegion }) {
-  const [selected, setSelected] = useState(
-    mockObservations[0]
-  );
-
-  const [beforeId, setBeforeId] = useState("DEMO-001");
-  const [afterId, setAfterId] = useState("DEMO-002");
+export default function DataPanel({
+  selectedRegion,
+  beforeId,
+  afterId,
+  onBeforeChange,
+  onAfterChange,
+}) {
+  const [selected, setSelected] = useState(null);
   const [threshold, setThreshold] = useState(45);
 
-
   const regionObservations = mockObservations.filter(
-    (observation) =>
-      observation.region === selectedRegion
+    (observation) => observation.region === selectedRegion
   );
 
   useEffect(() => {
-    setSelected(regionObservations[0] ?? null);
-    setBeforeId(regionObservations[0]?.id ?? "");
-    setAfterId(regionObservations[1]?.id ?? "");
+    const firstObservation =
+      mockObservations.find(
+        (observation) => observation.region === selectedRegion
+      ) ?? null;
+
+    setSelected(firstObservation);
   }, [selectedRegion]);
 
-  
+  const beforeObservation = regionObservations.find(
+    (observation) => observation.id === beforeId
+  );
+
+  const afterObservation = regionObservations.find(
+    (observation) => observation.id === afterId
+  );
+
   return (
     <aside className="data-panel">
       <div className="data-panel-heading">
@@ -46,13 +55,17 @@ export default function DataPanel({ selectedRegion }) {
         observations={regionObservations}
         beforeId={beforeId}
         afterId={afterId}
-        onBeforeChange={setBeforeId}
-        onAfterChange={setAfterId}
+        onBeforeChange={onBeforeChange}
+        onAfterChange={onAfterChange}
         threshold={threshold}
         onThresholdChange={setThreshold}
       />
 
-      <EvidenceInspector selected={selected} />
+      <EvidenceInspector
+        selected={selected}
+        beforeObservation={beforeObservation}
+        afterObservation={afterObservation}
+      />
     </aside>
   );
 }
