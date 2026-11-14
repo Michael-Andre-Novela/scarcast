@@ -1,11 +1,16 @@
+
 import { Outlet } from "react-router";
-import Sidebar from "../components/Sidebar.jsx";
+import Sidebar from "../components/Sidebar";
+import "../components/Sidebar.css";
 
 export default function AppLayout() {
   return (
-    <div style={{ display: "flex", gap: 24 }}>
+    <div className="app-layout">
       <Sidebar />
-      <main><Outlet /></main>
+
+      <main className="app-content">
+        <Outlet />
+      </main>
     </div>
   );
 }
