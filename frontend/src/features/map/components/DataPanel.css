@@ -144,3 +144,46 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+
+/* Evidence Inspector */
+
+.evidence-comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.evidence-card {
+  background: #17191d;
+  border: 1px solid #34383d;
+  border-radius: 10px;
+  padding: 14px;
+  min-width: 0;
+}
+
+.evidence-card h4 {
+  color: #d08a58;
+  font-size: 14px;
+  margin: 0 0 14px;
+}
+
+.evidence-card .metadata-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.evidence-card .metadata-row strong {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 520px) {
+  .evidence-comparison {
+    grid-template-columns: 1fr;
+  }
+}
