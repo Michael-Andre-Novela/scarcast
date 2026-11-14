@@ -1,0 +1,124 @@
+
+.data-panel {
+  background: #171a1b;
+  color: #e9e7e1;
+  padding: 24px;
+  height: 100%;
+  font-family: "DM Sans", sans-serif;
+}
+
+.data-panel-heading {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #303a35;
+}
+
+.data-panel-heading span {
+  color: #d08a58;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.data-panel-heading h2 {
+  font-size: 24px;
+  margin: 8px 0;
+}
+
+.data-panel-heading p,
+.data-note {
+  color: #a5ada7;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.data-section {
+  padding: 20px 0;
+  border-bottom: 1px solid #303a35;
+}
+
+.data-section h3 {
+  font-size: 15px;
+  margin: 0 0 15px;
+}
+
+.data-section label {
+  display: block;
+  margin: 12px 0 7px;
+  color: #a5ada7;
+  font-size: 12px;
+}
+
+.data-input {
+  display: block;
+  width: 100%;
+  background: #222827;
+  color: #e9e7e1;
+  border: 1px solid #303a35;
+  padding: 11px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.observation-list {
+  display: grid;
+  gap: 8px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.observation-card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  padding: 13px;
+  text-align: left;
+  background: #202625;
+  color: #e9e7e1;
+  border: 1px solid #303a35;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.observation-card.active,
+.observation-card:hover {
+  border-color: #d08a58;
+  background: #302b27;
+}
+
+.observation-card span,
+.observation-card small {
+  color: #a5ada7;
+  font-size: 12px;
+}
+
+.data-section input[type="range"] {
+  width: 100%;
+  accent-color: #d08a58;
+}
+
+.metadata-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #303a35;
+  font-size: 12px;
+}
+
+.metadata-row span {
+  color: #a5ada7;
+}
+
+.analysis-placeholder {
+  margin-top: 18px;
+  padding: 16px;
+  background: #222827;
+  border: 1px solid #303a35;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.analysis-placeholder p {
+  color: #a5ada7;
+  line-height: 1.6;
+}
