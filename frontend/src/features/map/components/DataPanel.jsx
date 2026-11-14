@@ -1,12 +1,12 @@
 
 import { useEffect, useState } from "react";
-import { mockObservations } from "../data/mockObservations";
 import ObservationDirectory from "./ObservationDirectory";
 import AnalysisControls from "./AnalysisControls";
 import EvidenceInspector from "./EvidenceInspector";
 import "./DataPanel.css";
 
 export default function DataPanel({
+  observations,
   selectedRegion,
   beforeId,
   afterId,
@@ -16,18 +16,18 @@ export default function DataPanel({
   const [selected, setSelected] = useState(null);
   const [threshold, setThreshold] = useState(45);
 
-  const regionObservations = mockObservations.filter(
+  const regionObservations = observations.filter(
     (observation) => observation.region === selectedRegion
   );
 
   useEffect(() => {
     const firstObservation =
-      mockObservations.find(
+      observations.find(
         (observation) => observation.region === selectedRegion
       ) ?? null;
 
     setSelected(firstObservation);
-  }, [selectedRegion]);
+  }, [selectedRegion, observations]);
 
   const beforeObservation = regionObservations.find(
     (observation) => observation.id === beforeId
@@ -46,6 +46,7 @@ export default function DataPanel({
       </div>
 
       <ObservationDirectory
+        key={selectedRegion}
         observations={regionObservations}
         selected={selected}
         onSelect={setSelected}

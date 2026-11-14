@@ -1,20 +1,32 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MapViewer from "./components/MapViewer.jsx";
 import DateSlider from "./components/DateSlider.jsx";
 import DataPanel from "./components/DataPanel.jsx";
 import ObservationComparison from "./components/ObservationComparison.jsx";
-import { mockObservations } from "./data/mockObservations.js";
+import useObservations from "./hooks/useObservations.js";
 import "./MapPage.css";
 
 export default function MapPage() {
-  const [selectedRegion, setSelectedRegion] = useState("Bukidnon");
-  const [beforeId, setBeforeId] = useState("DEMO-001");
-  const [afterId, setAfterId] = useState("DEMO-002");
+  const { observations, loading, error, source } =
+    useObservations();
 
-  const regionObservations = mockObservations.filter(
+  const [selectedRegion, setSelectedRegion] = useState("Bukidnon");
+  const [beforeId, setBeforeId] = useState("");
+  const [afterId, setAfterId] = useState("");
+
+  const regionObservations = observations.filter(
     (observation) => observation.region === selectedRegion
   );
+
+  useEffect(() => {
+    const available = observations
+      .filter((observation) => observation.region === selectedRegion)
+      .sort((a, b) => a.date.localeCompare(b.date));
+
+    setBeforeId(available[0]?.id ?? "");
+    setAfterId(available[1]?.id ?? "");
+  }, [selectedRegion, observations]);
 
   const beforeObservation = regionObservations.find(
     (observation) => observation.id === beforeId
@@ -24,19 +36,28 @@ export default function MapPage() {
     (observation) => observation.id === afterId
   );
 
-  function handleRegionSelect(region) {
-    const observations = mockObservations.filter(
-      (observation) => observation.region === region
-    );
-
-    setSelectedRegion(region);
-    setBeforeId(observations[0]?.id ?? "");
-    setAfterId(observations[1]?.id ?? "");
-  }
-
   return (
     <section className="scarcast-map-page">
-      <MapViewer onRegionSelect={handleRegionSelect} />
+      <MapViewer onRegionSelect={setSelectedRegion} />
+
+      <div aria-live="polite">
+        {loading && <p>Loading satellite observations...</p>}
+
+        {error && (
+          <p role="alert">
+            Unable to load observations: {error}
+          </p>
+        )}
+
+        {!loading && !error && (
+          <p>
+            Data source:{" "}
+            {source === "demo"
+              ? "Demo observations"
+              : "Connected observation API"}
+          </p>
+        )}
+      </div>
 
       <div className="scarcast-map-bottom">
         <div className="scarcast-visualization">
@@ -49,6 +70,7 @@ export default function MapPage() {
         </div>
 
         <DataPanel
+          observations={observations}
           selectedRegion={selectedRegion}
           beforeId={beforeId}
           afterId={afterId}
